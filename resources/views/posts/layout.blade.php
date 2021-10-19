@@ -9,13 +9,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- <script src="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"></script>
-    <script src ="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script> -->
-
-
     <style>
         .parsley-error-list li {
             list-style: none;

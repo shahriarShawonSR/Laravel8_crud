@@ -14,16 +14,22 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->search;
-        $paginate = $request->page_name ?? 10;
-        $data = Post::latest();
+        // <!-- @foreach($lists as $index => $list)
+        // {{$index + $lists->firstItem()}} //S.N
+        // @endforeach -->
 
+        $search = $request->search;
+        $paginate = $request->page_name ?? 5;
+        $data = Post::latest();
+     
         if ($search) {
             $data->where('title', 'like', '%' . $search . '%')->orWhere('author', 'like', '%' . $search . '%');
         }
-
+        $pageNumbers = ['05','10','15','20','25','30','35','40'];
         $data = $data->paginate($paginate);
-        return view('posts.index', compact('data'));
+        $request->flash();
+        return view('posts.index', compact('data','pageNumbers'));
+
     }
 
     /**
@@ -43,13 +49,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'title' => 'required|max:20',
-        //     'author' => 'required',
-        // ]);
-
         Post::create($request->all());
-
         return redirect()->route('posts.index')
             ->with('success', 'Post created successfully.');
     }

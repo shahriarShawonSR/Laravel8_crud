@@ -2,33 +2,29 @@
 
 @section('content')
 
-
-<div class="row" style="margin-top: 1rem;">
+<div class="row" style="margin-top: 0rem;">
     <form action="{{route('posts.index')}}" method="GET">
-        <div class="col-lg-12 margin-tb">
-
+        <div class="col-lg-12 margin-tb" style="margin-top: 1rem;">
             <div class="form-group pull-left">
-                <input type="search" name="search" class="form-control">
+                <input type="search" name="search" value="{{ old('search') }}" class="form-control">
                 <br>
             </div>
         </div>
-        <div class="col-lg-12 margin-tb">
-            <label for="page">Select paginate:</label>
+        <div class="col-lg-12 margin-tb pull-left">
+            <label for="pages">Select paginate:</label>
             <select name="page_name" id="page_id">
-                <option value="5">05</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
+                @foreach($pageNumbers as $page)
+                <option {{ old('page_name') == $page  ? 'selected' : ''  }} value="{{$page}}">{{$page}}</option>
+                @endforeach
             </select>
             <br>
         </div>
-        <span class="input-group-prepend ">
-            <button type="submit" class="btn btn-primary">Search</button>
+        <span class="col-lg-12 input-group-prepend margin-tb pull-left">
+            <button type="submit" class="btn btn-primary pull-left">Search</button>
         </span>
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('posts.create') }}"> Add new</a>
+                <a class="btn btn-success" href="{{ route('posts.create') }}">Add new</a>
             </div>
         </div>
     </form>
@@ -47,10 +43,12 @@
         <th>Author</th>
         <th width="280px">Action</th>
     </tr>
+  
     @if(count($data) > 0)
     @foreach($data as $key => $value)
     <tr>
-        <td>{{ ++$key }}</td>
+        <!-- <td>{{ ++$key}}</td> -->
+        <td>{{ ($data->currentpage()-1) * $data->perpage() + $key }}</td>
         <td>{{ $value->title }}</td>
         <td>{{ \Str::limit($value->author, 100) }}</td>
         <td>
@@ -70,11 +68,5 @@
     </tr>
     @endif
 </table>
-
-<!-- <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
-</script> -->
-{!! $data->links() !!}
+{{ $data->appends(request()->query())->links() }}
 @endsection
